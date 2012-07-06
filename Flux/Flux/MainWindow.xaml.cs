@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Shapes;
@@ -50,7 +51,8 @@ namespace Flux
         {
             try
             {
-                var files = new OpenFileDialog { Filter = "Images|*.png;*.bmp;*.jpg", Title = "Choisissez une image à charger" };
+                var files = new OpenFileDialog
+                                {Filter = "Images|*.png;*.bmp;*.jpg", Title = "Choisissez une image à charger"};
                 if (files.ShowDialog() == true)
                 {
                     var bi3 = new BitmapImage();
@@ -68,7 +70,7 @@ namespace Flux
 
         private void ClickMouse(object sender, MouseButtonEventArgs e)
         {
-                CreatePoint(e);
+            CreatePoint(e);
         }
 
         private void ChangePictureSize(object sender, SizeChangedEventArgs e)
@@ -90,7 +92,7 @@ namespace Flux
             if (saveFileDialog1.FileName != "")
             {
                 // Saves the Image via a FileStream created by the OpenFile method.
-                var fs = (FileStream)saveFileDialog1.OpenFile();
+                var fs = (FileStream) saveFileDialog1.OpenFile();
                 var nouveauDocument = new Document();
                 fs.Close();
                 string pic = saveFileDialog1.FileName.Substring(0, saveFileDialog1.FileName.IndexOf('.'));
@@ -125,7 +127,9 @@ namespace Flux
             {
                 throw new FormatException("You need to indicate the Width and Height values of the UIElement.");
             }
-            var render = new RenderTargetBitmap(Convert.ToInt32(width), Convert.ToInt32(mainCanva.GetValue(HeightProperty)), 96, 96, PixelFormats.Pbgra32);
+            var render = new RenderTargetBitmap(Convert.ToInt32(width),
+                                                Convert.ToInt32(mainCanva.GetValue(HeightProperty)), 96, 96,
+                                                PixelFormats.Pbgra32);
             // Indicate which control to render in the image
             render.Render(mainCanva);
             using (var stream = new FileStream(fileName + ".png", FileMode.Create))
@@ -140,5 +144,23 @@ namespace Flux
         {
             Close();
         }
+
+        private void SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            string selectitem = null;
+            if (comboBox2.SelectedItem != null)
+                selectitem = comboBox2.SelectedItem.ToString();
+            foreach (var it in _listFlux)
+            {
+                if (it.Name == selectitem)
+                {
+                    fluxSize.Text = (it.StrokeThickness*10).ToString(CultureInfo.InvariantCulture);
+                    it.Stroke = Brushes.Aqua;
+                }
+                else
+                    it.Stroke = Brushes.Gold;
+            }
+        }
     }
 }
+

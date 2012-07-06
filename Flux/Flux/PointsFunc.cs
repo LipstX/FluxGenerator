@@ -137,18 +137,31 @@ namespace Flux
         private void DeletePoint(object sender, KeyEventArgs e)
         {
             string selectitem = null;
-            if (PointList.SelectedItem != null)
-                selectitem = PointList.SelectedItem.ToString();
+            if (e.Key == Key.Down && (PointList.SelectedIndex + 1) != -1)
+            {
+                int x = PointList.SelectedIndex;
+                PointList.SelectedIndex = x+1;
+            }
+            else if (e.Key == Key.Up && (PointList.SelectedIndex - 1) != -1)
+            {
+                int x = PointList.SelectedIndex;
+                PointList.SelectedIndex = x - 1;
+            }
             if (e.Key == Key.Delete)
             {
-                for (int index = 0; index < _listImg.Count; index++)
+                while (PointList.SelectedItems.Count > 0)
                 {
-                    var it = _listImg[index];
-                    if (it.Name == selectitem)
+                    if (PointList.SelectedItem != null)
+                        selectitem = PointList.SelectedItem.ToString();
+                    for (int index = 0; index < _listImg.Count; index++)
                     {
-                        mainCanva.Children.Remove(it);
-                        _listImg.Remove(it);
-                        if (selectitem != null) PointList.Items.Remove(selectitem);
+                        var it = _listImg[index];
+                        if (it.Name == selectitem)
+                        {
+                            mainCanva.Children.Remove(it);
+                            _listImg.Remove(it);
+                            if (selectitem != null) PointList.Items.Remove(selectitem);
+                        }
                     }
                 }
             }
