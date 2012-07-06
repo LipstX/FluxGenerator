@@ -1,0 +1,60 @@
+﻿<Window x:Class="Flux.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Flux" Height="376" Width="527" MinWidth="525" MinHeight="350" SizeChanged="ChangePictureSize" Icon="/Flux;component/Images/simcore.png">
+    <Grid Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="152" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Canvas Name="mainCanva" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,150,0" Grid.Row="1" Grid.RowSpan="6" Width="353" Height="311" AllowDrop="True">
+            <Image Height="304" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Name="schema" Stretch="Fill" VerticalAlignment="Stretch" Width="353" MouseDown="ClickMouse" Canvas.Left="0" Canvas.Top="6" />
+        </Canvas>
+        <Menu Grid.ColumnSpan="3" Height="20" Margin="0,0,0,34" Grid.RowSpan="2">
+            <MenuItem Header="File" Grid.ColumnSpan="2">
+                <MenuItem Header="Upload Picture" Click="LoadPicture"/>
+                <MenuItem Header="Convert To PDF" Click="MakePdf"/>
+                <MenuItem Header="Close" Click="CloseApp"/>
+            </MenuItem>
+        </Menu>
+        <ComboBox Grid.Column="2" Grid.Row="6" Height="23" HorizontalAlignment="Right" Margin="0,87,13,0" Name="comboBox1" VerticalAlignment="Top" Width="120" SelectionChanged="ChangeImage">
+            <ComboBoxItem Name="Start" FontFamily="Verdana" FontSize="12" FontWeight="Bold" IsSelected="True">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images/Start.gif" Height="10"></Image>
+                    <TextBlock Text="Start"></TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem Name="Checkpoint" FontFamily="Verdana" FontSize="12" FontWeight="Bold">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images/checkpoint.png" Height="10"></Image>
+                    <TextBlock Text="Checkpoint"></TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem Name="EndSch" FontFamily="Verdana" FontSize="12" FontWeight="Bold">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images/End.gif" Height="10"></Image>
+                    <TextBlock Text="End"></TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+        </ComboBox>
+        <ListBox Grid.Column="2" Grid.Row="6" Height="67" HorizontalAlignment="Right" Margin="0,134,13,0" Name="PointList" VerticalAlignment="Top" Width="120" PreviewKeyDown="DeletePoint" SelectionChanged="PointListSelectionChanged" />
+        <Image Grid.Column="2" Grid.Row="6" Height="64" HorizontalAlignment="Right" Margin="0,0,13,12" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="120" Source="/Flux;component/Images/simcore.png" />
+        <Label Content="E-mail:info@simcore.fr" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" Margin="0,255,2,0" Name="label1" VerticalAlignment="Bottom" />
+        <Label Content="Web:www.simcore.fr" Grid.Column="2" Grid.Row="6" Height="28" HorizontalAlignment="Right" Margin="0,0,10,12" Name="label2" VerticalAlignment="Bottom" />
+        <ComboBox Grid.Column="2" Grid.Row="6" Height="23" HorizontalAlignment="Right" Margin="0,49,13,0" Name="comboBox2" VerticalAlignment="Top" Width="120" ItemsSource="{Binding}" PreviewKeyDown="DeleteFlux" />
+        <Label Content="Flux :" Grid.Column="2" Grid.Row="6" Height="28" HorizontalAlignment="Right" Margin="0,28,96,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="Points : " Grid.Column="2" Grid.Row="6" Height="28" HorizontalAlignment="Right" Margin="0,68,83,0" Name="label4" VerticalAlignment="Top" />
+        <Label Content="Points list :" Grid.Column="2" Grid.Row="6" Height="28" HorizontalAlignment="Right" Margin="0,109,69,0" Name="label5" VerticalAlignment="Top" />
+        <TextBox Grid.Column="2" Grid.Row="6" Height="23" HorizontalAlignment="Right" Margin="0,4,13,0" Name="fluxSize" VerticalAlignment="Top" Width="120" Text="50" />
+    </Grid>
+</Window>
